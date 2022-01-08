@@ -1,0 +1,183 @@
+1Q)How to compare two JSON have the same properties without order?
+var obj1 = { name: "Person 1", age:5 };
+var obj2 = { age:5, name: "Person 1" };
+
+CODE/ANS:-
+
+var isEqualsJson = (obj1,obj2)=>{
+  keys1 = Object.keys(obj1);
+  keys2 = Object.keys(obj2);
+  return keys1.length === keys2.length && Object.keys(obj1).every(key=>obj1[key]==obj2[key]);
+}
+
+var obj1 = {
+  name: 'sita',
+  age: 5,
+};
+
+var obj2 = {
+  age: 5,
+  name: 'sita'
+}; 
+
+console.log("json is equals: "+ isEqualsJson(obj1,obj2));
+alert("json is equals: "+ isEqualsJson(obj1,obj2));
+
+OUTPUT:-
+json is equals: true
+2script.js:125 
+
+2Q)Use the rest countries API url -> https://restcountries.eu/rest/v2/all and display all the country flags in console
+CODE/ANS:-
+
+var xhr = new XMLHttpRequest();
+
+
+xhr.open("GET", "https://restcountries.com/v3.1/all");
+
+xhr.onload = function () {
+  
+  if (xhr.status >= 200 && xhr.status < 300) {
+    let countries = JSON.parse(this.response);
+
+    let filtered = countries.filter(function (country) {
+
+      return country.currencies?.hasOwnProperty('USD')
+    });
+    console.log(filtered)
+
+    filtered.map(country => {
+      console.log('country flags', country.flags)
+    })
+  }
+};
+
+xhr.send()
+
+OUTPUT:-
+20) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/tc.png', svg: 'https://flagcdn.com/tc.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/ec.png', svg: 'https://flagcdn.com/ec.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/vi.png', svg: 'https://flagcdn.com/vi.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/mp.png', svg: 'https://flagcdn.com/mp.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/pw.png', svg: 'https://flagcdn.com/pw.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/kh.png', svg: 'https://flagcdn.com/kh.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/gu.png', svg: 'https://flagcdn.com/gu.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/sv.png', svg: 'https://flagcdn.com/sv.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/pr.png', svg: 'https://flagcdn.com/pr.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/vg.png', svg: 'https://flagcdn.com/vg.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/tl.png', svg: 'https://flagcdn.com/tl.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/fm.png', svg: 'https://flagcdn.com/fm.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/um.png', svg: 'https://flagcdn.com/um.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/as.png', svg: 'https://flagcdn.com/as.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/io.png', svg: 'https://flagcdn.com/io.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/pa.png', svg: 'https://flagcdn.com/pa.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/bq.png', svg: 'https://flagcdn.com/bq.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/bs.png', svg: 'https://flagcdn.com/bs.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/us.png', svg: 'https://flagcdn.com/us.svg'}
+2script.js:44 country flags {png: 'https://flagcdn.com/w320/mh.png', svg: 'https://flagcdn.com/mh.svg'}
+
+3Q)Use the same rest countries and print all countries name, region, sub region and population
+CODE/ANS:-
+var xhr = new XMLHttpRequest();
+
+xhr.open("GET", "https://restcountries.com/v3.1/all");
+
+xhr.onload = function () {
+
+  if (xhr.status >= 200 && xhr.status < 300) {
+    let countries = JSON.parse(this.response);
+
+    let filtered = countries.filter(function (country) {
+      return country.currencies?.hasOwnProperty('USD')
+    });
+    console.log(filtered)
+ 
+    filtered.map(country => {
+      console.log('country name', country.name.common)
+    })
+    filtered.map(country => {
+      console.log('country region', country.region)
+    }) 
+    filtered.map(country => {
+      console.log('country subregion', country.subregion)
+    })
+     filtered.map(country => {
+      console.log('country population', country.population)
+    })
+  }
+};
+xhr.send()
+
+OUTPUT:-
+(20) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+2script.js:44 country name Turks and Caicos Islands
+2script.js:44 country name Ecuador
+2script.js:44 country name United States Virgin Islands
+2script.js:44 country name Northern Mariana Islands
+2script.js:44 country name Palau
+2script.js:44 country name Cambodia
+2script.js:44 country name Guam
+2script.js:44 country name El Salvador
+2script.js:44 country name Puerto Rico
+2script.js:44 country name British Virgin Islands
+2script.js:44 country name Timor-Leste
+2script.js:44 country name Micronesia
+2script.js:44 country name United States Minor Outlying Islands
+2script.js:44 country name American Samoa
+2script.js:44 country name British Indian Ocean Territory
+2script.js:44 country name Panama
+2script.js:44 country name Caribbean Netherlands
+2script.js:44 country name Bahamas
+2script.js:44 country name United States
+2script.js:44 country name Marshall Islands
+32script.js:47 country region Americas
+22script.js:47 country region Oceania
+2script.js:47 country region Asia
+2script.js:47 country region Oceania
+32script.js:47 country region Americas
+2script.js:47 country region Asia
+2script.js:47 country region Oceania
+2script.js:47 country region Americas
+2script.js:47 country region Oceania
+2script.js:47 country region Africa
+42script.js:47 country region Americas
+2script.js:47 country region Oceania
+2script.js:50 country subregion Caribbean
+2script.js:50 country subregion South America
+2script.js:50 country subregion Caribbean
+22script.js:50 country subregion Micronesia
+2script.js:50 country subregion South-Eastern Asia
+2script.js:50 country subregion Micronesia
+2script.js:50 country subregion Central America
+22script.js:50 country subregion Caribbean
+2script.js:50 country subregion South-Eastern Asia
+2script.js:50 country subregion Micronesia
+2script.js:50 country subregion North America
+2script.js:50 country subregion Polynesia
+2script.js:50 country subregion Eastern Africa
+2script.js:50 country subregion Central America
+22script.js:50 country subregion Caribbean
+2script.js:50 country subregion North America
+2script.js:50 country subregion Micronesia
+2script.js:53 country population 38718
+2script.js:53 country population 17643060
+2script.js:53 country population 106290
+2script.js:53 country population 57557
+2script.js:53 country population 18092
+2script.js:53 country population 16718971
+2script.js:53 country population 168783
+2script.js:53 country population 6486201
+2script.js:53 country population 3194034
+2script.js:53 country population 30237
+2script.js:53 country population 1318442
+2script.js:53 country population 115021
+2script.js:53 country population 300
+2script.js:53 country population 55197
+2script.js:53 country population 3000
+2script.js:53 country population 4314768
+2script.js:53 country population 25987
+2script.js:53 country population 393248
+2script.js:53 country population 329484123
+2script.js:53 country population 59194
+
